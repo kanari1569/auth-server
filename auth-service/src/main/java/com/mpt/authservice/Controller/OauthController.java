@@ -2,6 +2,7 @@ package com.mpt.authservice.Controller;
 
 import java.io.IOException;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,15 @@ public class OauthController {
     OauthService oauthService;
 
     @GetMapping("/api/login/{socialLoginType}")
-    public ResponseEntity<String> socialLogin(@PathVariable(name="socialLoginType") String SocialLoginPath) throws IOException {
+    public void socialLogin(@PathVariable(name="socialLoginType") String SocialLoginPath, HttpServletResponse response) throws IOException {
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
-        
-        return ResponseEntity.ok().body(oauthService.request(socialLoginType));
+        // System.out.println(oauthService.request(socialLoginType));
+        response.sendRedirect(oauthService.request(socialLoginType));
+        // return ResponseEntity.ok().body(oauthService.request(socialLoginType));
     }
 
     @GetMapping("/api/login/{socialLoginType}/redirection")
-    public ResponseEntity<UserResponse> socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state") String state) throws IOException {
+    public ResponseEntity<UserResponse> socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state) throws IOException {
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
         UserResponse userResponse = oauthService.oauthLogin(socialLoginType,code,state);
         return ResponseEntity.ok().body(userResponse);
