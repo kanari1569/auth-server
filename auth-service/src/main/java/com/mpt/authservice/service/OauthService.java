@@ -1,4 +1,4 @@
-package com.mpt.authservice.Service;
+package com.mpt.authservice.service;
 
 import java.io.IOException;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.mpt.authservice.Domain.User;
-import com.mpt.authservice.Dto.UserResponse;
+import com.mpt.authservice.domain.User;
+import com.mpt.authservice.dto.UserResponse;
 import com.mpt.authservice.SocialLogin.LoginTokenManager;
 import com.mpt.authservice.SocialLogin.SocialLoginType;
 import com.mpt.authservice.SocialLogin.Google.GoogleOauth;

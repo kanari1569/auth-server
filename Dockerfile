@@ -27,3 +27,5 @@ RUN apt-get clean;
 COPY --from=build /home/gradle/project/auth-service/build/libs/auth-server-1.0.jar .
 
 CMD ["java", "-jar", "-Dspring.profiles.active=prod", "auth-server-1.0.jar"]
+
+EXPOSE 8080

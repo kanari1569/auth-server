@@ -1,4 +1,4 @@
-package com.mpt.authservice.Domain;
+package com.mpt.authservice.domain;
 
 import java.util.HashMap;
 import java.util.Map;

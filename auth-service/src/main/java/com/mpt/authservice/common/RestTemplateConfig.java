@@ -1,4 +1,4 @@
-package com.mpt.authservice.Common;
+package com.mpt.authservice.common;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
