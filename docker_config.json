@@ -1,5 +1,5 @@
 {
-  "version": "30",
+  "version": "42",
   "docker_hub_username": "jusuk",
   "docker_hub_repository": "auth-server"
 }

@@ -2,7 +2,14 @@ package com.mpt.authservice.controller;
 
 import java.io.IOException;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+// import javax.servlet.ServletRequest;
+// import javax.servlet.http.HttpServletRequest;
+// import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +25,15 @@ public class OauthController {
     @Autowired
     OauthService oauthService;
 
+    @GetMapping("/testlogin/{socialLoginType}")
+    public void testSocialLogin(@PathVariable(name="socialLoginType") String SocialLoginPath,@RequestParam(name = "redirect_url", required = false) String redirect_url, HttpServletRequest  request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect_url",redirect_url);
+        SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
+        response.sendRedirect(oauthService.request(socialLoginType));
+        // return ResponseEntity.ok().body(oauthService.request(socialLoginType));
+    }
+
     @GetMapping("/login/{socialLoginType}")
     public void socialLogin(@PathVariable(name="socialLoginType") String SocialLoginPath, HttpServletResponse response) throws IOException {
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
@@ -26,7 +42,11 @@ public class OauthController {
     }
 
     @GetMapping("/login/{socialLoginType}/redirection")
-    public ResponseEntity<UserResponse> socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state) throws IOException {
+    public ResponseEntity<UserResponse> socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state,HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("redirect_url"));
+        // session.removeAttribute("redirect_url");
+
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
         UserResponse userResponse = oauthService.oauthLogin(socialLoginType,code,state);
         return ResponseEntity.ok().body(userResponse);
