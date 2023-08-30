@@ -3,7 +3,7 @@ zip -s 0 ./auth-service/gradle/wrapper/gradle-8.1.1.zip --out ./auth-service/gra
 
 # build stage
 cd ./auth-service
-./gradlew clean build
+./gradlew clean build --stacktrace
 
 # clear temp files 
 cd ..

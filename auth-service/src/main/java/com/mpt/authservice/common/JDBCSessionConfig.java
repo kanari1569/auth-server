@@ -13,9 +13,4 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @EnableJdbcHttpSession
 public class JDBCSessionConfig{
-
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
 }
