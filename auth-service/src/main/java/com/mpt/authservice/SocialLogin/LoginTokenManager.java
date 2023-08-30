@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class LoginTokenManager {
-    @Value("${Token.secreat-key}")
+    @Value("${Token.secret-key}")
     private String SECREAT_KEY;
     
     public String genToken(User user){
