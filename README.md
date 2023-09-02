@@ -17,8 +17,6 @@
     ```
 * Before running the server, you need to create an application.yml file
     ```console
-    $ mkdir -p ./auth-service/src/main/resources
-    $ touch ./auth-service/src/main/resources/application.yml
     $ vi ./auth-service/src/main/resources/application.yml
     ```
 * application.yml
