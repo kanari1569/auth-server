@@ -1,8 +1,6 @@
 package com.mpt.authservice.common;
 
 import javax.sql.DataSource;
-// import jakarta.sql.DataSource;
-// import jakarta.activation.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

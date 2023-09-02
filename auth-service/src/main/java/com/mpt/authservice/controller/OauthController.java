@@ -36,7 +36,7 @@ public class OauthController {
     }
 
     @GetMapping("/login/{socialLoginType}/redirection")
-    public ResponseEntity<UserResponse> socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state,HttpServletRequest request, HttpServletResponse response) throws IOException {
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
         UserResponse userResponse = oauthService.oauthLogin(socialLoginType,code,state);
         
@@ -46,8 +46,6 @@ public class OauthController {
             session.removeAttribute("redirect_url");
             response.sendRedirect(redirect_url+"?userResponse="+userResponse.toJson());
         }
-
-        return ResponseEntity.ok().body(userResponse);
     }
 
 	// 파라미터로 전달받은 토큰 처리
