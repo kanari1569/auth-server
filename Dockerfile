@@ -14,7 +14,7 @@ COPY . .
 # RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" > /root/.gradle/gradle.properties
 
 RUN ls auth-service
-RUN auth-service/gradle_build.sh
+RUN auth-service/gradlew clean build
 
 # Stage 2: Run the application
 FROM ubuntu:20.04
