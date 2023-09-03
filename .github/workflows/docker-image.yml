@@ -17,7 +17,9 @@ jobs:
         run: |
           touch ./auth-service/src/main/resources/application.properties
           echo "${{secrets.APPLICATION_YML}}" > ./auth-service/src/main/resources/application.properties
-        
+      - 
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       -
         name: set tag
         id: docker_meta
