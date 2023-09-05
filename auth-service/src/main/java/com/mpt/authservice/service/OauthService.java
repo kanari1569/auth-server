@@ -13,12 +13,12 @@ import com.mpt.authservice.SocialLogin.SocialLoginType;
 import com.mpt.authservice.SocialLogin.Google.GoogleOauth;
 import com.mpt.authservice.SocialLogin.Google.GoogleOauthToken;
 import com.mpt.authservice.SocialLogin.Google.GoogleUser;
-import com.mpt.authservice.SocialLogin.Kakao.KakaoOauth;
-import com.mpt.authservice.SocialLogin.Kakao.KakaoOauthToken;
-import com.mpt.authservice.SocialLogin.Kakao.KakaoUser;
-import com.mpt.authservice.SocialLogin.Naver.NaverOauth;
-import com.mpt.authservice.SocialLogin.Naver.NaverOauthToken;
-import com.mpt.authservice.SocialLogin.Naver.NaverUser;
+//import com.mpt.authservice.SocialLogin.Kakao.KakaoOauth;
+//import com.mpt.authservice.SocialLogin.Kakao.KakaoOauthToken;
+//import com.mpt.authservice.SocialLogin.Kakao.KakaoUser;
+//import com.mpt.authservice.SocialLogin.Naver.NaverOauth;
+//import com.mpt.authservice.SocialLogin.Naver.NaverOauthToken;
+//import com.mpt.authservice.SocialLogin.Naver.NaverUser;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +28,10 @@ import lombok.RequiredArgsConstructor;
 public class OauthService{    
     @Autowired
     private final GoogleOauth googleOauth;
-    @Autowired
-    private final KakaoOauth kakaoOauth;
-    @Autowired
-    private final NaverOauth naverOauth;    
+//    @Autowired
+//    private final KakaoOauth kakaoOauth;
+//    @Autowired
+//    private final NaverOauth naverOauth;
 	@Autowired
 	private final LoginTokenManager loginTokenManager;
     
@@ -39,8 +39,8 @@ public class OauthService{
         String redirectURL;
         switch (socialLoginType){
             case GOOGLE : redirectURL = googleOauth.getOauthRedirectURL();   break;
-            case KAKAO  : redirectURL = kakaoOauth.getOauthRedirectURL();    break;
-            case NAVER  : redirectURL = naverOauth.getOauthRedirectURL();    break;
+//            case KAKAO  : redirectURL = kakaoOauth.getOauthRedirectURL();    break;
+//            case NAVER  : redirectURL = naverOauth.getOauthRedirectURL();    break;
             default:{
                 throw new IllegalArgumentException("Unknown Social Login Type");
             }
@@ -71,40 +71,40 @@ public class OauthService{
                         .build();
             }
             break;
-            case KAKAO:{
-                ResponseEntity<String> accessTokenResponse= kakaoOauth.requestAccessToken(code);
-                KakaoOauthToken oauthToken = kakaoOauth.getAccessToken(accessTokenResponse);
-                ResponseEntity<String> userInfoResponse=kakaoOauth.requestUserInfo(oauthToken);
-                KakaoUser kakaoUser = kakaoOauth.getUserInfo(userInfoResponse);
-                userResponse = UserResponse.builder()
-                        .status("Login Success")
-                        .token(loginTokenManager.genToken(User.builder()
-                                                            .userID(String.valueOf(kakaoUser.id))
-                                                            .email(kakaoUser.kakao_account.email)
-                                                            .platform("KAKAO")
-                                                            .build()))
-                        .email(kakaoUser.kakao_account.email)
-                        .platform("KAKAO")
-                        .build();
-            }
-            break;
-            case NAVER:{
-                ResponseEntity<String> accessTokenResponse= naverOauth.requestAccessToken(code,state);
-                NaverOauthToken oauthToken = naverOauth.getAccessToken(accessTokenResponse);
-                ResponseEntity<String> userInfoResponse=naverOauth.requestUserInfo(oauthToken);
-                NaverUser naverUser = naverOauth.getUserInfo(userInfoResponse);
-                userResponse = UserResponse.builder()
-                        .status("Login Success")
-                        .token(loginTokenManager.genToken(User.builder()
-                                                            .userID(naverUser.response.id)
-                                                            .email(naverUser.response.email)
-                                                            .platform("NAVER")
-                                                            .build()))
-                        .email(naverUser.response.email)
-                        .platform("NAVER")
-                        .build();
-            }
-            break;
+//            case KAKAO:{
+//                ResponseEntity<String> accessTokenResponse= kakaoOauth.requestAccessToken(code);
+//                KakaoOauthToken oauthToken = kakaoOauth.getAccessToken(accessTokenResponse);
+//                ResponseEntity<String> userInfoResponse=kakaoOauth.requestUserInfo(oauthToken);
+//                KakaoUser kakaoUser = kakaoOauth.getUserInfo(userInfoResponse);
+//                userResponse = UserResponse.builder()
+//                        .status("Login Success")
+//                        .token(loginTokenManager.genToken(User.builder()
+//                                                            .userID(String.valueOf(kakaoUser.id))
+//                                                            .email(kakaoUser.kakao_account.email)
+//                                                            .platform("KAKAO")
+//                                                            .build()))
+//                        .email(kakaoUser.kakao_account.email)
+//                        .platform("KAKAO")
+//                        .build();
+//            }
+//            break;
+//            case NAVER:{
+//                ResponseEntity<String> accessTokenResponse= naverOauth.requestAccessToken(code,state);
+//                NaverOauthToken oauthToken = naverOauth.getAccessToken(accessTokenResponse);
+//                ResponseEntity<String> userInfoResponse=naverOauth.requestUserInfo(oauthToken);
+//                NaverUser naverUser = naverOauth.getUserInfo(userInfoResponse);
+//                userResponse = UserResponse.builder()
+//                        .status("Login Success")
+//                        .token(loginTokenManager.genToken(User.builder()
+//                                                            .userID(naverUser.response.id)
+//                                                            .email(naverUser.response.email)
+//                                                            .platform("NAVER")
+//                                                            .build()))
+//                        .email(naverUser.response.email)
+//                        .platform("NAVER")
+//                        .build();
+//            }
+//            break;
             default:{
                 userResponse = UserResponse.builder()
                         .status("Login Failed :Unknown Social Login Type")

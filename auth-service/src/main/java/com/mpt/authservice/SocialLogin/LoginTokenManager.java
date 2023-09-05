@@ -18,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginTokenManager {
     @Value("${Token.secret-key}")
-    private String SECREAT_KEY;
+    private String SECRET_KEY;
     
     public String genToken(User user){
         return Jwts.builder()
-            .signWith(SignatureAlgorithm.HS512,SECREAT_KEY)
+            .signWith(SignatureAlgorithm.HS512,SECRET_KEY)
             .setSubject("Login")
             .setClaims(user.getHashMap())
             .setIssuer("Musinsa-Price-Tracker")
@@ -34,7 +34,7 @@ public class LoginTokenManager {
     public boolean isValid(String token) {
         try {
             Claims claims = Jwts.parser()
-                .setSigningKey(SECREAT_KEY)
+                .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
             
@@ -46,7 +46,7 @@ public class LoginTokenManager {
 
     public String refreshToken(String token) {
         Claims claims = Jwts.parser()
-            .setSigningKey(SECREAT_KEY)
+            .setSigningKey(SECRET_KEY)
             .parseClaimsJws(token)
             .getBody();
 
@@ -67,7 +67,7 @@ public class LoginTokenManager {
 
     public Claims getClaims(String token) {
         Claims claims = Jwts.parser()
-            .setSigningKey(SECREAT_KEY)
+            .setSigningKey(SECRET_KEY)
             .parseClaimsJws(token)
             .getBody();
         
