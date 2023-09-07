@@ -1,0 +1,5 @@
+{
+  "version": "1",
+  "docker_hub_username": "kanari",
+  "docker_hub_repository": "auth-server"
+}

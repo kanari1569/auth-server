@@ -1,7 +1,7 @@
 # Stage 1: Build the application
-FROM ubuntu:20.04 AS build
+FROM ubuntu:22.04 AS build
 
-WORKDIR /home/gradle/project
+WORKDIR /home/gradle/project/auth-service
 
 RUN apt-get update;
 RUN apt-get install -y openjdk-17-jdk;
@@ -9,16 +9,11 @@ RUN apt-get install -y unzip zip;
 RUN apt-get clean;
 
 COPY . .
-
-# RUN mkdir -p /root/.gradle
-# RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" > /root/.gradle/gradle.properties
-
-WORKDIR /home/gradle/project/auth-service
 RUN ls
 RUN ./gradlew clean build
 
 # Stage 2: Run the application
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /root/workspace
 

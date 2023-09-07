@@ -37,8 +37,7 @@ public class OauthController {
 
     @GetMapping("/login/{socialLoginType}/redirection")
     public void socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam(name = "code") String code, @RequestParam(name = "state", required = false) String state,HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("code======"+code);
-        System.out.println("state=========="+state);
+
         SocialLoginType socialLoginType = SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
         UserResponse userResponse = oauthService.oauthLogin(socialLoginType,code,state);
         
